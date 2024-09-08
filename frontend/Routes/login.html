@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Form</title>
+  <link rel="stylesheet" href="../assets/css/login.css">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+  <div class="wrapper">
+    <form id="login-form">
+      <h1>Login</h1>
+      <div class="input-box">
+        <input type="text" id="username" placeholder="Username" required>
+        <i class='bx bxs-user'></i>
+      </div>
+      <div class="input-box">
+        <input type="password" id="password" placeholder="Password" >
+        <i class='bx bxs-lock-alt' ></i>
+      </div>
+      <div class="remember-forgot">
+        <label><input type="checkbox">Remember Me</label>
+        <a href="#">Forgot Password</a>
+      </div>
+      <button onclick="login()" type="submit" class="btn" >Login</button>
+      <div class="register-link">
+        <p>Dont have an account? <a href="#">Register</a></p>
+      </div>
+    </form>
+  </div>
+</body>
+
+<script>
+
+function login()
+    {
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      const data = {
+      username: username,
+      password: password
+    };
+  document.getElementById('login-form').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent form from refreshing the page
+
+    sendAPIRequest(data);
+  }
+    )}
+
+    
+
+
+
+const sendAPIRequest = async (data) =>
+{
+  var jsondata = await JSON.stringify(data);
+  let apiResponse = await fetch(`http://192.168.0.110:8000/api/usersignin?username`, {method:"POST", headers: { 'Content-Type': 'application/json' }, body:jsondata});
+  console.log(apiResponse);
+  if(apiResponse.status==200)
+    {
+        alert(apiResponse.statusText);
+    }
+  
+  else if(apiResponse.status==403)
+    {
+        alert(apiResponse.statusText);
+    }
+  
+    else if(apiResponse.status==404)
+    {
+        alert(apiResponse.statusText);
+    }
+}
+
+
+
+
+
+</script>
+</html>
